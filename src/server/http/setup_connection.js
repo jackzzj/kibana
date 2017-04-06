@@ -48,7 +48,7 @@ export default function (kbnServer, server, config) {
   });
 
   server.ext('onRequest', function (req, reply) {
-    if (req.raw.req.socket.encrypted) {
+    if (!req.raw.req.socket || req.raw.req.socket.encrypted) {
       reply.continue();
     } else {
       reply.redirect(formatUrl({
